@@ -1,5 +1,6 @@
 import uuid
 from typing import List
+from onderhoud.database.stategie import Strategie
 
 class OnderhoudStrategie:
     def __init__(self, id: uuid.UUID, kunstwerk_id: uuid.UUID, frequentie: int, onderhoudeisen: List[str]):
@@ -16,6 +17,14 @@ class OnderhoudStrategie:
             frequentie=data["frequentie"],
             onderhoudeisen=data["onderhoudeisen"]
         )
+    
+    def set_database(self, kunstwerk_id: str, frequentie: int, onderhoudeisen: list):
+        strategie = Strategie(
+            kunstwerk_id=kunstwerk_id,
+            frequentie=frequentie,
+            onderhoudeisen=onderhoudeisen
+        )
+        strategie.toevoegen(kunstwerk_id, frequentie, onderhoudeisen)
 
     def get_id(self) -> uuid.UUID:
         return self.__id
